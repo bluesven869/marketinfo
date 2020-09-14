@@ -15,8 +15,10 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "prettier/prettier": [
       "error", {
-        "semi": false
+        "semi": true
       }
-    ]
+    ],
+    "no-use-before-define": ["error", { "functions": false, "classes": true }],
+    "no-param-reassign": ["error", { "props": false }]
   }
 }

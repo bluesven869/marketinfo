@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useSelector } from "react-redux";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,16 +16,28 @@ import "./market-info.scss";
 const API_BASE_URL = "https://liquality.io/swap/agent/api/";
 
 function MarketInfo() {
-  const [marketData, setMarketData] = useState([]);
+  const apiCallIntervals = useSelector((state) => state.app.apiCallIntervals);
 
-  const fetchData = useCallback(async () => {
+  const [marketData, setMarketData] = useState([]);
+  const [timerID, setTimerID] = useState(null);
+
+  const callAPI = useCallback(async () => {
+    console.log("API is called", performance.now());
     const data = await axios.get(`${API_BASE_URL}swap/marketinfo`);
     setMarketData(data.data);
   }, []);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (timerID) {
+      clearInterval(timerID);
+    }
+    setTimerID(setInterval(() => callAPI(), apiCallIntervals * 1000));
+    // eslint-disable-next-line
+  }, [apiCallIntervals]);
+
+  useEffect(() => {
+    callAPI();
+  }, [callAPI]);
 
   return (
     <TableContainer component={Paper}>
@@ -66,7 +79,7 @@ function MarketInfo() {
 
                 <TableCell align="right">{data.status}</TableCell>
                 <TableCell align="right">
-                  {moment(data.updatedAt).format("LLL")}
+                  {moment(data.updatedAt).format("MMM Do YYYY hh:mm:ss A")}
                 </TableCell>
               </TableRow>
             );

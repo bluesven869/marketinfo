@@ -1,0 +1,17 @@
+@import "../../scss/variables.scss";
+.inactive {
+  fill: $inactive-color !important;
+}
+
+.active {
+  fill: $active-color !important;
+}
+
+.max {
+  color: $max-color;
+  display: block;
+}
+.min {
+  color: $min-color;
+  display: block;
+}

@@ -1,0 +1,32 @@
+.logo {
+  height: 80px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.header {
+  background-color: #282c34;
+  min-height: 80px;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
